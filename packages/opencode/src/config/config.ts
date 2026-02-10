@@ -78,6 +78,10 @@ export namespace Config {
     let result: Info = {}
     for (const [key, value] of Object.entries(auth)) {
       if (value.type === "wellknown") {
+        if (Flag.OPENCODE_OFFLINE) {
+          log.warn("Skipping .well-known config fetch in offline mode", { url: key })
+          continue
+        }
         process.env[value.key] = value.token
         log.debug("fetching remote config", { url: `${key}/.well-known/opencode` })
         const response = await fetch(`${key}/.well-known/opencode`)

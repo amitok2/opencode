@@ -1,0 +1,32 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "provider": {
+    "local": {
+      "id": "local",
+      "name": "Local Models",
+      "api": "https://your-internal-model-server/v1",
+      "npm": "@ai-sdk/openai-compatible",
+      "env": [],
+      "models": {
+        "your-model-name": {
+          "id": "your-model-name",
+          "name": "Your Model Display Name",
+          "attachment": false,
+          "reasoning": false,
+          "temperature": true,
+          "tool_call": true,
+          "cost": { "input": 0, "output": 0 },
+          "limit": { "context": 128000, "output": 4096 },
+          "options": {}
+        }
+      },
+      "options": {
+        "baseURL": "https://your-internal-model-server/v1"
+      }
+    }
+  },
+  "model": "local/your-model-name",
+  "enabled_providers": ["local"],
+  "share": "disabled",
+  "autoupdate": false
+}

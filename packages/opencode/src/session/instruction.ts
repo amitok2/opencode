@@ -127,7 +127,7 @@ export namespace InstructionPrompt {
     })
 
     const urls: string[] = []
-    if (config.instructions) {
+    if (config.instructions && !Flag.OPENCODE_OFFLINE) {
       for (const instruction of config.instructions) {
         if (instruction.startsWith("https://") || instruction.startsWith("http://")) {
           urls.push(instruction)

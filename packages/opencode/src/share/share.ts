@@ -1,4 +1,5 @@
 import { Bus } from "../bus"
+import { Flag } from "../flag/flag"
 import { Installation } from "../installation"
 import { Session } from "../session"
 import { MessageV2 } from "../session/message-v2"
@@ -70,7 +71,8 @@ export namespace Share {
     process.env["OPENCODE_API"] ??
     (Installation.isPreview() || Installation.isLocal() ? "https://api.dev.opencode.ai" : "https://api.opencode.ai")
 
-  const disabled = process.env["OPENCODE_DISABLE_SHARE"] === "true" || process.env["OPENCODE_DISABLE_SHARE"] === "1"
+  const disabled =
+    process.env["OPENCODE_DISABLE_SHARE"] === "true" || process.env["OPENCODE_DISABLE_SHARE"] === "1" || Flag.OPENCODE_OFFLINE
 
   export async function create(sessionID: string) {
     if (disabled) return { url: "", secret: "" }

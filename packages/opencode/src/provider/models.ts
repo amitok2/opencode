@@ -93,7 +93,7 @@ export namespace ModelsDev {
       .then((m) => m.snapshot as Record<string, unknown>)
       .catch(() => undefined)
     if (snapshot) return snapshot
-    if (Flag.OPENCODE_DISABLE_MODELS_FETCH) return {}
+    if (Flag.OPENCODE_DISABLE_MODELS_FETCH || Flag.OPENCODE_OFFLINE) return {}
     const json = await fetch(`${url()}/api.json`).then((x) => x.text())
     return JSON.parse(json)
   })
@@ -122,7 +122,7 @@ export namespace ModelsDev {
   }
 }
 
-if (!Flag.OPENCODE_DISABLE_MODELS_FETCH) {
+if (!Flag.OPENCODE_DISABLE_MODELS_FETCH && !Flag.OPENCODE_OFFLINE) {
   ModelsDev.refresh()
   setInterval(
     async () => {

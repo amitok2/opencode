@@ -531,6 +531,17 @@ export namespace Server {
           },
         )
         .all("/*", async (c) => {
+          if (Flag.OPENCODE_OFFLINE) {
+            return c.json(
+              {
+                error: "offline_mode",
+                message:
+                  "OpenCode is running in offline mode. The web UI is not available. Use the API endpoints directly.",
+                docs: "/doc",
+              },
+              404,
+            )
+          }
           const path = c.req.path
 
           const response = await proxy(`https://app.opencode.ai${path}`, {

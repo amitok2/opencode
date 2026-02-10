@@ -1,5 +1,6 @@
 import z from "zod"
 import { Tool } from "./tool"
+import { Flag } from "../flag/flag"
 import DESCRIPTION from "./codesearch.txt"
 import { abortAfterAny } from "../util/abort"
 
@@ -51,6 +52,13 @@ export const CodeSearchTool = Tool.define("codesearch", {
       ),
   }),
   async execute(params, ctx) {
+    if (Flag.OPENCODE_OFFLINE) {
+      return {
+        output: "Code search is not available in offline mode.",
+        title: `Search unavailable (offline)`,
+        metadata: {},
+      }
+    }
     await ctx.ask({
       permission: "codesearch",
       patterns: [params.query],

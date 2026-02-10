@@ -1,5 +1,6 @@
 import path from "path"
 import { mkdir } from "fs/promises"
+import { Flag } from "../flag/flag"
 import { Log } from "../util/log"
 import { Global } from "../global"
 
@@ -36,6 +37,10 @@ export namespace Discovery {
   }
 
   export async function pull(url: string): Promise<string[]> {
+    if (Flag.OPENCODE_OFFLINE) {
+      log.warn("Skipping remote skill fetch in offline mode", { url })
+      return []
+    }
     const result: string[] = []
     const base = url.endsWith("/") ? url : `${url}/`
     const index = new URL("index.json", base).href

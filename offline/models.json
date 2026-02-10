@@ -1,0 +1,30 @@
+{
+  "local": {
+    "id": "local",
+    "name": "Local Models",
+    "api": "https://your-internal-model-server/v1",
+    "npm": "@ai-sdk/openai-compatible",
+    "env": [],
+    "models": {
+      "your-model-name": {
+        "id": "your-model-name",
+        "name": "Your Model Display Name",
+        "family": "local",
+        "release_date": "2025-01-01",
+        "attachment": false,
+        "reasoning": false,
+        "temperature": true,
+        "tool_call": true,
+        "cost": {
+          "input": 0,
+          "output": 0
+        },
+        "limit": {
+          "context": 128000,
+          "output": 4096
+        },
+        "options": {}
+      }
+    }
+  }
+}

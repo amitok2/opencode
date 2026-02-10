@@ -1,5 +1,6 @@
 import z from "zod"
 import { Tool } from "./tool"
+import { Flag } from "../flag/flag"
 import DESCRIPTION from "./websearch.txt"
 import { abortAfterAny } from "../util/abort"
 
@@ -63,6 +64,13 @@ export const WebSearchTool = Tool.define("websearch", async () => {
         .describe("Maximum characters for context string optimized for LLMs (default: 10000)"),
     }),
     async execute(params, ctx) {
+      if (Flag.OPENCODE_OFFLINE) {
+        return {
+          output: "Web search is not available in offline mode.",
+          title: `Search unavailable (offline)`,
+          metadata: {},
+        }
+      }
       await ctx.ask({
         permission: "websearch",
         patterns: [params.query],

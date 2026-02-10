@@ -1,5 +1,6 @@
 import { Bus } from "@/bus"
 import { Config } from "@/config/config"
+import { Flag } from "@/flag/flag"
 import { ulid } from "ulid"
 import { Provider } from "@/provider/provider"
 import { Session } from "@/session"
@@ -15,7 +16,8 @@ export namespace ShareNext {
     return Config.get().then((x) => x.enterprise?.url ?? "https://opncd.ai")
   }
 
-  const disabled = process.env["OPENCODE_DISABLE_SHARE"] === "true" || process.env["OPENCODE_DISABLE_SHARE"] === "1"
+  const disabled =
+    process.env["OPENCODE_DISABLE_SHARE"] === "true" || process.env["OPENCODE_DISABLE_SHARE"] === "1" || Flag.OPENCODE_OFFLINE
 
   export async function init() {
     if (disabled) return
